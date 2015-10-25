@@ -75,38 +75,32 @@ img {
 <li>It is necessary download the <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip">dataset</a> and unzip files inside the project folder.</li>
 </ul>
 <hr />
-<ol style="list-style-type: decimal">
-<li><p>mergeFeats function merges the training and the test sets (X) to create one data frame called “<strong>measures</strong>”.</p>
+<p>mergeFeats function merges the training and the test sets (X) to create one data frame called “<strong>measures</strong>”.</p>
 <pre class="{r}"><code>measures &lt;- mergeFeats(&quot;UCI HAR Dataset/test/X_test.txt&quot;, &quot;UCI HAR Dataset/train/X_train.txt&quot;)</code></pre>
-<ul>
-<li><p>Then, selectFeats function selects a set of features names (mean and standard deviation) specified in features.txt file. These features are sorted and concatenated in a vector called “<strong>features</strong>”.</p>
+<p>Then, selectFeats function selects a set of features names (mean and standard deviation) specified in features.txt file. These features are sorted and concatenated in a vector called “<strong>features</strong>”.</p>
 <pre class="{r}"><code>meanFeats &lt;- selectFeats(&quot;UCI HAR Dataset/features.txt&quot;, &quot;-mean\\(\\)&quot;)
 stdFeats &lt;- selectFeats(&quot;UCI HAR Dataset/features.txt&quot;, &quot;-std\\(\\)&quot;)
 features &lt;- rbind(meanFeats, stdFeats)
-features &lt;- arrange(features, FeatId)</code></pre></li>
-</ul></li>
-<li><p>Afterwards, The data frame “<strong>measures</strong>” is composed by the set of measurements about the mean and standard deviation features.</p>
+features &lt;- arrange(features, FeatId)</code></pre>
+<p>Afterwards, The data frame “<strong>measures</strong>” is composed by the set of measurements about the mean and standard deviation features.</p>
 <pre class="{r}"><code>measures &lt;- select(measures, features[,1])</code></pre>
-<ul>
-<li><p>The loadActivities function loads activities Names and their ids in a data frame called “<strong>acts</strong>”</p>
-<pre class="{r}"><code>acts &lt;- loadActivities(&quot;UCI HAR Dataset/activity_labels.txt&quot;)</code></pre></li>
-<li><p>The loadFiles function allows us to load the subject and the activities “y”&quot; from training and test set. These data frames are concatenated too in one data frame called “<strong>table</strong>”.</p>
+<p>The loadActivities function loads activities Names and their ids in a data frame called “<strong>acts</strong>”</p>
+<pre class="{r}"><code>acts &lt;- loadActivities(&quot;UCI HAR Dataset/activity_labels.txt&quot;)</code></pre>
+<p>The loadFiles function allows us to load the subject and the activities “y”&quot; from training and test set. These data frames are concatenated too in one data frame called “<strong>table</strong>”.</p>
 <pre class="{r}"><code>tableT &lt;- loadFiles(&quot;UCI HAR Dataset/test/subject_test.txt&quot;, &quot;UCI HAR Dataset/test/y_test.txt&quot;)
 tableTr &lt;- loadFiles(&quot;UCI HAR Dataset/train/subject_train.txt&quot;, &quot;UCI HAR Dataset/train/y_train.txt&quot;)
-table &lt;- rbind(tableTr, tableT)</code></pre></li>
-</ul></li>
-<li><p>To facilitate reading, we use descriptive activity names to name the activities in the data set. Thus, the data frame “<strong>table</strong>” is merged with the activities Names “<strong>acts</strong>”.</p>
+table &lt;- rbind(tableTr, tableT)</code></pre>
+<p>To facilitate reading, we use descriptive activity names to name the activities in the data set. Thus, the data frame “<strong>table</strong>” is merged with the activities Names “<strong>acts</strong>”.</p>
 <pre class="{r}"><code>table &lt;- merge(table, acts, by=&quot;ActivityId&quot;) 
-table &lt;- select(table, Volunteer,ActivityName)</code></pre></li>
-<li><p>This code labels the data set with descriptive variable names and concatenate the data frame “<strong>table</strong>” and the measures for each volunteer.</p>
+table &lt;- select(table, Volunteer,ActivityName)</code></pre>
+<p>This code labels the data set with descriptive variable names and concatenate the data frame “<strong>table</strong>” and the measures for each volunteer.</p>
 <pre class="{r}"><code>names(measures) &lt;- features[,2] 
-table &lt;- bind_cols(table,measures)</code></pre></li>
-<li><p>Finally , we create a tidy data set with the average of each variable for each activity and each subject called “<strong>tidyTable</strong>”.</p>
+table &lt;- bind_cols(table,measures)</code></pre>
+<p>Finally , we create a tidy data set with the average of each variable for each activity and each subject called “<strong>tidyTable</strong>”.</p>
 <pre class="{r}"><code>tidyTable &lt;- table 
 %&gt;% arrange(Volunteer) 
 %&gt;% group_by(Volunteer, ActivityName) 
-%&gt;% summarise_each(funs(mean))</code></pre></li>
-</ol>
+%&gt;% summarise_each(funs(mean))</code></pre>
 
 
 </div>
