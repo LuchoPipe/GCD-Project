@@ -45,7 +45,6 @@ measures <- select(measures, features[,1])
 
 # Loading activities Names and their ids
 acts <- loadActivities("UCI HAR Dataset/activity_labels.txt")
-View(acts)
 # Loading the subject and y from training and the test set.
 tableT <- loadFiles("UCI HAR Dataset/test/subject_test.txt", "UCI HAR Dataset/test/y_test.txt")
 tableTr <- loadFiles("UCI HAR Dataset/train/subject_train.txt", "UCI HAR Dataset/train/y_train.txt")
