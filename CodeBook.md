@@ -19,7 +19,11 @@ Notes:
 measures <- mergeFeats("UCI HAR Dataset/test/X_test.txt", "UCI HAR Dataset/train/X_train.txt")
 ```
 
+<<<<<<< HEAD
 	+ Then, selectFeats function selects a set of features names (mean and standard deviation) specified in features.txt file. These features are sorted and concatenated in a vector called "**features**".
+=======
+Then, selectFeats function selects a set of features names (mean and standard deviation) specified in features.txt file. These features are sorted and concatenated in a vector called "**features**".
+>>>>>>> d11f9cbff448d33799c38367180b1a9369865031
 ```{r}
 meanFeats <- selectFeats("UCI HAR Dataset/features.txt", "-mean\\(\\)")
 stdFeats <- selectFeats("UCI HAR Dataset/features.txt", "-std\\(\\)")
@@ -32,12 +36,20 @@ features <- arrange(features, FeatId)
 measures <- select(measures, features[,1])
 ```
 
+<<<<<<< HEAD
 	+ The loadActivities function loads activities Names and their ids in a data frame called "**acts**"
+=======
+The loadActivities function loads activities Names and their ids in a data frame called "**acts**"
+>>>>>>> d11f9cbff448d33799c38367180b1a9369865031
 ```{r}
 acts <- loadActivities("UCI HAR Dataset/activity_labels.txt")
 ```
 
+<<<<<<< HEAD
 	+ The loadFiles function allows us to load the subject and the activities "y"" from training and test set. These data frames are concatenated too in one data frame called "**table**".
+=======
+The loadFiles function allows us to load the subject and the activities "y"" from training and test set. These data frames are concatenated too in one data frame called "**table**".
+>>>>>>> d11f9cbff448d33799c38367180b1a9369865031
 ```{r}
 tableT <- loadFiles("UCI HAR Dataset/test/subject_test.txt", "UCI HAR Dataset/test/y_test.txt")
 tableTr <- loadFiles("UCI HAR Dataset/train/subject_train.txt", "UCI HAR Dataset/train/y_train.txt")
